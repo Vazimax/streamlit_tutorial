@@ -1,5 +1,8 @@
 import streamlit as sl
+from datetime import *
 import pandas as pd
+import time as t
+import datetime
 import json
 
 sl.markdown("""
@@ -65,3 +68,32 @@ sl.markdown('---')
 file = sl.file_uploader('PDF',type=['pdf'],accept_multiple_files=True)
 if file is None:
     sl.text('There is no file yet!')
+
+
+sl.slider('Slider')
+color = sl.select_slider(
+    "Select a color of the rainbow",
+    options=["red", "orange", "yellow", "green", "blue", "indigo", "violet"])
+sl.write("My favorite color is", color) 
+
+sl.text_input('Enter your fav color:',max_chars=20)
+sl.text_area('Why do you like this color:',max_chars=1000)
+sl.date_input('Your birthday:',datetime.date(2004, 6, 7))
+
+
+def conv(value):
+    m,s,mm = value.split(":")
+    t_s = int(m)*60 + int(s) + int(mm)/1000
+    return t_s
+
+value = sl.time_input('Set timer', value=time(0,0,0))
+if str(value) == '00:00:00':
+    sl.text('Please set a timer')
+else:
+    s = conv(str(value)) / 100
+    bar = sl.progress(0)
+    progress_status = sl.empty()
+    for i in range(100):    
+        bar.progress(i+1)
+        progress_status.write(str(i+1) + '%')
+        t.sleep(s)
