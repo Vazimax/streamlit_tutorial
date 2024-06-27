@@ -18,6 +18,23 @@ sl.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
+sl.markdown('## Registration')
+with sl.form('Registration',clear_on_submit=True):
+    col1, col2 = sl.columns(2)
+    f_name = col1.text_input('First name')
+    l_name = col2.text_input('Last name')
+    sl.text_input('Email')
+    sl.text_input('Password')
+    sl.text_input('Confirm Password')
+
+    form = sl.form_submit_button('Register')
+
+    if form:
+        if f_name == "" or l_name == "":
+            sl.warning('Fill out the above fields')
+        else:
+            sl.success('Congrats, You are regsitered')
+
 
 sl.title('TEEST')
 sl.subheader('Bakr')
@@ -97,3 +114,4 @@ else:
         bar.progress(i+1)
         progress_status.write(str(i+1) + '%')
         t.sleep(s)
+
